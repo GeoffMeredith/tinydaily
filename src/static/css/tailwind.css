@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.saying-card {
+		@apply bg-gray-50 p-8 rounded-lg mb-8 text-center;
+	}
+
+	.saying-card blockquote {
+		@apply text-xl italic m-0 p-0;
+	}
+
+	.saying-card blockquote footer {
+		@apply mt-4 text-base text-primary;
+	}
+
+	.subscription-form {
+		@apply text-center;
+	}
+
+	.subscription-form h2 {
+		@apply text-primary mb-4;
+	}
+
+	.subscription-form form {
+		@apply flex gap-2 mb-4;
+	}
+
+	.subscription-form input {
+		@apply flex-1 p-2 border border-gray-300 rounded text-base;
+	}
+
+	.subscription-form button {
+		@apply px-4 py-2 bg-secondary text-white border-none rounded cursor-pointer text-base transition-colors duration-300;
+	}
+
+	.subscription-form button:hover {
+		@apply bg-blue-600;
+	}
+
+	#subscriptionMessage {
+		@apply p-2 rounded mt-4;
+	}
+
+	#subscriptionMessage.success {
+		@apply bg-green-50 text-success;
+	}
+
+	#subscriptionMessage.error {
+		@apply bg-red-50 text-error;
+	}
+}

@@ -5,21 +5,49 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "nodemon src/app.ts",
+    "dev": "concurrently \"nodemon src/app.ts\" \"npm run watch:css\" \"npm run watch:ts\" \"npm run watch:static\"",
     "build": "tsc",
-    "watch:scss": "sass --watch src/public/scss:src/public/css"
+    "watch:css": "tailwindcss -i ./src/static/css/tailwind.css -o ./public/css/style.css --watch",
+    "build:css": "tailwindcss -i ./src/static/css/tailwind.css -o ./public/css/style.css",
+    "watch:ts": "tsc -w --project tsconfig.client.json",
+    "watch:static": "chokidar \"src/static/**/*\" -c \"npm run copy:static\"",
+    "copy:static": "mkdir -p public && cp -r src/static/* public/"
   },
   "dependencies": {
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "mongoose": "^8.0.3"
+    "@aws-sdk/client-ses": "^3.787.0",
+    "@types/ejs": "^3.1.5",
+    "@types/handlebars": "^4.0.40",
+    "@types/nodemailer": "^6.4.17",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "handlebars": "^4.7.8",
+    "mongoose": "^8.13.2",
+    "nodemailer": "^6.10.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.10.5",
-    "nodemon": "^3.0.2",
-    "sass": "^1.69.5",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
+    "autoprefixer": "^10.4.17",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.9",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  }
-} 
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoffMeredith/tinydaily.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GeoffMeredith/tinydaily/issues"
+  },
+  "homepage": "https://github.com/GeoffMeredith/tinydaily#readme"
+}

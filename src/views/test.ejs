@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+
+<div class="max-w-2xl mx-auto mt-8 px-4">
+	<h1 class="text-3xl font-bold text-primary mb-6">Test Email Sending</h1>
+
+	<div class="bg-white rounded-lg shadow-md p-6">
+		<form id="testEmailForm" class="space-y-4">
+			<div>
+				<label for="to" class="block text-sm font-medium text-gray-700 mb-1">To Email</label>
+				<input type="email" id="to" name="to" class="w-full p-2 border border-gray-300 rounded text-base" required value="gom.test.ses@l0.ca" />
+			</div>
+
+			<div>
+				<label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+				<input type="text" id="subject" name="subject" class="w-full p-2 border border-gray-300 rounded text-base" required value="Testing SES" />
+			</div>
+
+			<div>
+				<label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+				<textarea id="message" name="message" rows="4" class="w-full p-2 border border-gray-300 rounded text-base" required
+				>Hello, this is a test email.
+				</textarea>
+			</div>
+
+			<button type="submit" class="w-full px-4 py-2 bg-secondary text-white rounded hover:bg-blue-600 transition duration-300">Send Test Email</button>
+		</form>
+
+		<div id="testMessage" class="mt-4 p-2 rounded"></div>
+	</div>
+</div>
+
+<script>
+	document.getElementById('testEmailForm').addEventListener('submit', async e => {
+		e.preventDefault();
+
+		const form = e.target;
+		const messageDiv = document.getElementById('testMessage');
+
+		try {
+			const response = await fetch('/test/send-test-email', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					to: form.to.value,
+					subject: form.subject.value,
+					message: form.message.value,
+				}),
+			});
+
+			const data = await response.json();
+
+			if (data.success) {
+				messageDiv.className = 'mt-4 p-2 rounded bg-green-50 text-green-700';
+				messageDiv.textContent = data.message;
+			} else {
+				messageDiv.className = 'mt-4 p-2 rounded bg-red-50 text-red-700';
+				messageDiv.textContent = data.message;
+			}
+		} catch (error) {
+			messageDiv.className = 'mt-4 p-2 rounded bg-red-50 text-red-700';
+			messageDiv.textContent = 'Failed to send test email. Please try again.';
+		}
+	});
+</script>
+
+<%- include('partials/footer') %>

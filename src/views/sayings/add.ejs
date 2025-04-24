@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <h1>Add Inspirational Sayings</h1>
+  
+  <form action="/sayings/add" method="POST" class="mt-4">
+    <div class="mb-3">
+      <label for="sayings" class="form-label">Enter sayings (one per line)</label>
+      <textarea 
+        class="form-control" 
+        id="sayings" 
+        name="sayings" 
+        rows="15"
+        placeholder="1. First saying&#10;2. Second saying&#10;3. Third saying"
+      ></textarea>
+      <div class="form-text">You can paste multiple sayings at once. Leading numbers and periods will be automatically removed.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %> 
